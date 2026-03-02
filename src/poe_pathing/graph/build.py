@@ -1,0 +1,25 @@
+from collections import defaultdict
+import json
+
+with open("../data/skilltree-export_3.27.0.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# Build adjacency list of the passive tree graph
+adj = defaultdict(list)
+
+# v1: ignores nodes with no connections
+for node_id, node in data["nodes"].items():
+    in_nodes = node.get("in", [])
+    out_nodes = node.get("out", [])
+
+    if not in_nodes and not out_nodes:
+        continue
+
+    # Add edges in both directions (undirected graph)
+    for out_node in out_nodes:
+        adj[node_id].append(out_node)
+    
+    for in_node in in_nodes:
+        adj[in_node].append(node_id)
+
+    print(f"{node_id}: in={in_nodes}, out={out_nodes}")
