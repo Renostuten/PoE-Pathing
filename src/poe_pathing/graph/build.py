@@ -1,7 +1,7 @@
 from collections import defaultdict
 import json
 
-with open("../data/skilltree-export_3.27.0.json", "r", encoding="utf-8") as f:
+with open("../data/skilltree-export_3.28.0.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
 # Build adjacency list of the passive tree graph
