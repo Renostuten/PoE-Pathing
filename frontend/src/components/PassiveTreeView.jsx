@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 export default function PassiveTreeView({ data }) {
+  const [hoveredNode, setHoveredNode] = useState(null);
+
   const nodeMap = Object.fromEntries(data.nodes.map(node => [node.id, node]));
 
   const minX = Math.min(...data.nodes.map(node => node.x));
@@ -43,10 +47,34 @@ export default function PassiveTreeView({ data }) {
             stroke="#222"
             strokeWidth="8"
           >
-            <title>{node.name}</title>
+            <title>
+              {node.name + "\n" + (node.stats?.join("\n") ?? "")}
+            </title>
           </circle>
         ))}
       </svg>
+      {hoveredNode && (
+        <div
+          style={{
+            position: "absolute",
+            top: 20,
+            left: 20,
+            background: "#222",
+            color: "#fff",
+            padding: "10px",
+            borderRadius: "8px",
+            maxWidth: "300px",
+            pointerEvents: "none"
+          }}
+        >
+          <strong>{hoveredNode.name}</strong>
+          <ul>
+            {hoveredNode.stats?.map((stat, i) => (
+              <li key={i}>{stat}</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
