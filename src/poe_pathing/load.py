@@ -36,7 +36,7 @@ def load_poe_tree(tag: str, cache_dir: str = ".cache/poe_tree", force_refresh: b
 
 if __name__ == "__main__":
     TAG = "3.28.0"
-    tree = load_poe_tree(TAG, cache_dir="data")
+    tree = load_poe_tree(TAG, cache_dir="data/raw", force_refresh=True)
 
     nodes = tree["nodes"]
     print("nodes:", len(nodes))

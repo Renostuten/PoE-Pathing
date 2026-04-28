@@ -1,7 +1,7 @@
 import json
 from build import load_adj
 
-adj = load_adj("../data/skilltree-export_3.28.0.json")
+adj = load_adj("../data/raw/skilltree-export_3.28.0.json")
 
 # bfs, returns the path from src to dst
 def shortest_path(src, dst):
