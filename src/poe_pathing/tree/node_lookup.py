@@ -1,4 +1,5 @@
 import json
+from tokenize import group
 
 from graph.node_position import get_node_position
 
@@ -28,6 +29,7 @@ class NodeLookup:
                 "name": node["name"],
                 "x": x,
                 "y": y,
+                "isNotable": node.get("isNotable", False),
                 "stats": node.get("stats", [])
             }
 
