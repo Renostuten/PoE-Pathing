@@ -1,26 +1,59 @@
 from collections import defaultdict
 import json
 
+
+def is_drawable_node(node: dict, groups: dict) -> bool:
+    group_id = node.get("group")
+
+    if group_id is None:
+        return False
+
+    group = groups.get(str(group_id))
+
+    if group is None:
+        return False
+
+    if node.get("ascendancyName") is not None:
+        return False
+
+    if node.get("isAscendancyStart", False):
+        return False
+
+    if node.get("isMastery", False):
+        return False
+
+    return True
+
+
 def load_adj(path: str) -> dict[str, list[str]]:
     with open(path, "r", encoding="utf-8") as f:
         data = json.load(f)
-    # Build adjacency list of the passive tree graph
-    adj: dict[str, list[str]] = defaultdict(list)
 
-    # v1: ignores nodes with no connections (mastery nodes)
-    for node_id, node in data["nodes"].items():
-        in_nodes = node.get("in", [])
-        out_nodes = node.get("out", [])
-        is_mastery = node.get("isMastery", False)
+    nodes = data["nodes"]
+    groups = data["groups"]
 
-        if (not in_nodes and not out_nodes) or is_mastery:
+    valid_node_ids = {
+        node_id
+        for node_id, node in nodes.items()
+        if is_drawable_node(node, groups)
+    }
+
+    adj: dict[str, set[str]] = defaultdict(set)
+
+    for node_id, node in nodes.items():
+        if node_id not in valid_node_ids:
             continue
 
-        # Add edges in both directions (undirected graph)
-        for out_node in out_nodes:
-            adj[node_id].append(out_node)
-        
-        for in_node in in_nodes:
-            adj[in_node].append(node_id)
+        neighbours = node.get("in", []) + node.get("out", [])
 
-    return adj
+        for neighbour_id in neighbours:
+            if neighbour_id not in valid_node_ids:
+                continue
+
+            adj[node_id].add(neighbour_id)
+            adj[neighbour_id].add(node_id)
+
+    return {
+        node_id: sorted(neighbours)
+        for node_id, neighbours in adj.items()
+    }
