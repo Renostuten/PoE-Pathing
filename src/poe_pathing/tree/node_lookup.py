@@ -1,6 +1,6 @@
 import json
 
-from poe_pathing.graph.node_position import get_node_position
+from graph.node_position import get_node_position
 
 class NodeLookup:
     def __init__(self, path):
@@ -10,6 +10,17 @@ class NodeLookup:
         self.lookup = {}
 
         for node_id, node in self.tree["nodes"].items():
+            group_id = node.get("group")
+
+            if group_id is None:
+                continue
+
+            if node.get("isMastery", False):
+                continue
+
+            if str(group_id) not in self.tree["groups"]:
+                print(f"Skipping node {node_id}: group {group_id} not found")
+                continue
             x, y = get_node_position(self.tree, node_id)
 
             self.lookup[node_id] = {

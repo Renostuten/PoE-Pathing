@@ -2,7 +2,12 @@ import math
 
 def get_node_position(tree: dict, node_id: str) -> tuple[float, float]:
     node = tree["nodes"][node_id]
-    group = tree["groups"][str(node["group"])]
+
+    if "group" not in node:
+        raise ValueError(f"Node {node_id} has no group and cannot be positioned")
+
+    group_id = node["group"]
+    group = tree["groups"][str(group_id)]
 
     group_x = group["x"]
     group_y = group["y"]
