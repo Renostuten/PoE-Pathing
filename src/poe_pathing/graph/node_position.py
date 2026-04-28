@@ -18,7 +18,10 @@ def get_node_position(tree: dict, node_id: str) -> tuple[float, float]:
     radius = tree["constants"]["orbitRadii"][orbit]
     skills_in_orbit = tree["constants"]["skillsPerOrbit"][orbit]
 
-    angle = 2 * math.pi * orbit_index / skills_in_orbit
+    angle = (
+        2 * math.pi * orbit_index / skills_in_orbit
+        - math.pi / 2
+    )
 
     x = group_x + radius * math.cos(angle)
     y = group_y + radius * math.sin(angle)
