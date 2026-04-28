@@ -2,23 +2,25 @@ import json
 from pathlib import Path
 
 
-def build_edges(adj: dict[str, list[str]]) -> list[dict[str, str]]:
+def build_edges(adj: dict[str, list[str]], node_lookup) -> list[dict[str, str]]:
     edges = []
     seen = set()
 
     for node_id, neighbours in adj.items():
+        if node_lookup.get(node_id) is None:
+            continue
+
         for neighbour_id in neighbours:
+            if node_lookup.get(neighbour_id) is None:
+                continue
+
             edge_key = tuple(sorted((node_id, neighbour_id)))
 
             if edge_key in seen:
                 continue
 
             seen.add(edge_key)
-
-            edges.append({
-                "from": node_id,
-                "to": neighbour_id,
-            })
+            edges.append({"from": node_id, "to": neighbour_id})
 
     return edges
 
@@ -49,7 +51,7 @@ def export_tree_graph(
 
     export_data = {
         "nodes": build_nodes(adj, node_lookup),
-        "edges": build_edges(adj),
+        "edges": build_edges(adj, node_lookup),
         "highlightedPath": highlighted_path,
     }
 
