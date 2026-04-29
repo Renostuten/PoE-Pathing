@@ -43,7 +43,13 @@ export default function PassiveTreeView({ data }) {
             cx={node.x}
             cy={node.y}
             r="35"
-            fill={node.isNotable ? "#d6a84f" : "#ddd"}
+            fill={
+              node.classStartIndex !== null
+                ? "#4aa3ff"   // class start (blue)
+                : node.isNotable
+                ? "#d6a84f"   // notable
+                : "#ddd"      // normal
+            }
             stroke="#222"
             strokeWidth="8"
           >
