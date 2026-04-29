@@ -13,6 +13,16 @@ export default function PassiveTreeView({ data }) {
   const padding = 500;
   const viewBox = `${minX - padding} ${minY - padding} ${maxX - minX + padding * 2} ${maxY - minY + padding * 2}`;
 
+  const getNodeRadius = (node) => {
+    if (node.isKeystone) {
+      return 60; // keystone
+    } else if (node.isNotable) {
+      return 45; // notable
+    } else {
+      return 35; // normal
+    }
+  };
+  
   return (
     <div style={{ width: "100vw", height: "100vh", background: "#111" }}>
       <svg viewBox={viewBox} width="100%" height="100%">
@@ -42,12 +52,14 @@ export default function PassiveTreeView({ data }) {
             key={node.id}
             cx={node.x}
             cy={node.y}
-            r="35"
+            r={getNodeRadius(node)}
             fill={
               node.classStartIndex !== null
                 ? "#4aa3ff"   // class start (blue)
                 : node.isNotable
                 ? "#d6a84f"   // notable
+                : node.isKeystone
+                ? "#ff4a4a"   // keystone
                 : "#ddd"      // normal
             }
             stroke="#222"
