@@ -26,6 +26,7 @@ class NodeLookup:
 
             self.lookup[node_id] = {
                 "id": node_id,
+                "classStartIndex": node.get("classStartIndex"),
                 "name": node["name"],
                 "x": x,
                 "y": y,
