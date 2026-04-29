@@ -34,6 +34,27 @@ class PathFinder:
         path = self.shortest_path(src, dst)
         return len(path) - 1 if path else None
     
+    def shortest_paths_from_allocated(self, allocated):
+        queue = deque()
+        distance = {}
+        previous = {}
+
+        for node_id in allocated:
+            queue.append(node_id)
+            distance[node_id] = 0
+            previous[node_id] = None
+
+        while queue:
+            current = queue.popleft()
+
+            for neighbour in self.adj.get(current, []):
+                if neighbour not in distance:
+                    distance[neighbour] = distance[current] + 1
+                    previous[neighbour] = current
+                    queue.append(neighbour)
+
+        return distance, previous
+    
     def _is_class_start(self, node: dict) -> bool:
         return node["classStartIndex"] is not None
 
