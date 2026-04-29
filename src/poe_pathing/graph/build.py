@@ -21,6 +21,12 @@ def is_drawable_node(node: dict, groups: dict) -> bool:
 
     if node.get("isMastery", False):
         return False
+    
+    if node.get("isProxy", False):
+        return False
+    
+    if node.get("name") == "Medium Jewel Socket":
+        return False
 
     return True
 
