@@ -31,6 +31,7 @@ class NodeLookup:
                 "x": x,
                 "y": y,
                 "isNotable": node.get("isNotable", False),
+                "isKeystone": node.get("isKeystone", False),
                 "stats": node.get("stats", [])
             }
 
