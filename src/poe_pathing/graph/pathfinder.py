@@ -1,10 +1,9 @@
 from collections import deque
 
 class PathFinder:
-    def __init__(self, adj, node_lookup, start_root_id):
+    def __init__(self, adj, node_lookup):
         self.adj = adj
         self.node_lookup = node_lookup
-        self.start_root_id = start_root_id
 
     def shortest_path(self, src, dst):
         visited = set()
@@ -66,7 +65,7 @@ class PathFinder:
             return False
 
         if self._is_class_start(node):
-            return node_id == self.start_root_id
+            return False
 
         return True
 
