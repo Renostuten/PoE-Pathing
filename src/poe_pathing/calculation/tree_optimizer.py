@@ -3,7 +3,7 @@ class TreeOptimizer:
         self.pathfinder = pathfinder
         self.path_evaluator = path_evaluator
 
-    def recommend_paths(self, allocated, max_points=10, limit=10):
+    def recommend_paths(self, allocated, desired_stats: dict[tuple[str, str], float], max_points=10, limit=10):
         distance, previous = self.pathfinder.shortest_paths_from_allocated(allocated)
 
         candidates = []
@@ -17,8 +17,8 @@ class TreeOptimizer:
 
             path = self.reconstruct_path(previous, target)
 
-            score = self.path_evaluator.score_path(path, allocated)
-            efficiency = self.path_evaluator.efficiency(path, allocated)
+            score = self.path_evaluator.score_path(path, allocated, desired_stats)
+            efficiency = self.path_evaluator.efficiency(path, allocated, desired_stats)
 
             if score <= 0:
                 continue
