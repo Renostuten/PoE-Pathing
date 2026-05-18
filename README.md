@@ -15,9 +15,9 @@ The long-term goal of this project is to automatically generate passive tree pro
 The system should eventually generate complete levelling and endgame tree recommendations.
 
 ## Progress Breakdown Reference
-- [ ] = TODO, not started yet
+- [ ] = TODO
 - [x] = Completed
-- [w] = Work in progress
+- <span style = "color:yellow">Yellow text = Work in Progress</span>
 
 ## Current Progress
 
@@ -32,7 +32,7 @@ The system should eventually generate complete levelling and endgame tree recomm
 ## Core Roadmap:
 
 ### Phase 1 - Recommendation System
-- [w] Create frontend interface that allows the user to choose desired stats and class
+- [ ] <span style = "color:yellow">Create frontend interface that allows the user to choose desired stats and class</span>
 - [ ] Display recommended paths on the frontend tree based off of the desired stats and class
 - [ ] Create frontend interface that displays a breakdown on the recommendations
     - Point cost
