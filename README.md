@@ -17,7 +17,7 @@ The system should eventually generate complete levelling and endgame tree recomm
 ## Progress Breakdown Reference
 - [ ] = TODO
 - [x] = Completed
-- <span style = "color:yellow">Yellow text = Work in Progress</span>
+- 🚧 = Work in progress
 
 ## Current Progress
 
@@ -32,7 +32,7 @@ The system should eventually generate complete levelling and endgame tree recomm
 ## Core Roadmap:
 
 ### Phase 1 - Recommendation System
-- [ ] <span style = "color:yellow">Create frontend interface that allows the user to choose desired stats and class</span>
+- 🚧 Create frontend interface that allows the user to choose desired stats and class
 - [ ] Display recommended paths on the frontend tree based off of the desired stats and class
 - [ ] Create frontend interface that displays a breakdown on the recommendations
     - Point cost
