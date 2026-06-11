@@ -1,8 +1,7 @@
 import json
-from tokenize import group
 
-from graph.node_position import get_node_position
-from poe_pathing.tree.passive_node import PassiveNode
+from ..graph.node_position import get_node_position
+from .passive_node import PassiveNode
 
 class NodeLookup:
     def __init__(self, path):
@@ -43,6 +42,7 @@ class NodeLookup:
         return PassiveNode(
             id=node_data["id"],
             name=node_data["name"],
+            class_start_index=node_data["classStartIndex"],
             is_keystone=node_data["isKeystone"],
             is_notable=node_data["isNotable"],
             stats=node_data["stats"]

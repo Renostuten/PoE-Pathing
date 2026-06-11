@@ -4,6 +4,7 @@ from dataclasses import dataclass
 class PassiveNode:
     id: int
     name: str
+    class_start_index: int | None
     is_keystone: bool
     is_notable: bool
     stats: list[str]

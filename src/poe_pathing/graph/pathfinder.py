@@ -21,7 +21,7 @@ class PathFinder:
             visited.add(current)
 
             for neighbor in self.adj.get(current, []):
-                if not self._is_traversable(neighbor):
+                if not self._is_traversable(neighbor, allocated={src}):
                     continue
 
                 if neighbor not in visited:
@@ -47,6 +47,9 @@ class PathFinder:
             current = queue.popleft()
 
             for neighbour in self.adj.get(current, []):
+                if not self._is_traversable(neighbour, allocated):
+                    continue
+
                 if neighbour not in distance:
                     distance[neighbour] = distance[current] + 1
                     previous[neighbour] = current
@@ -54,11 +57,16 @@ class PathFinder:
 
         return distance, previous
     
-    def _is_class_start(self, node: dict) -> bool:
-        return node["classStartIndex"] is not None
+    def _is_class_start(self, node) -> bool:
+        return node.class_start_index is not None
 
 
-    def _is_traversable(self, node_id: str) -> bool:
+    def _is_traversable(self, node_id: str, allocated=None) -> bool:
+        allocated = allocated or set()
+
+        if node_id in allocated:
+            return True
+
         node = self.node_lookup.get(node_id)
 
         if node is None:
@@ -76,4 +84,4 @@ class PathFinder:
         if node is None:
             return False
 
-        return not node.get("isClassStart", False)
+        return not self._is_class_start(node)
