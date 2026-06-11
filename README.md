@@ -24,22 +24,24 @@ The system should eventually generate complete levelling and endgame tree recomm
 ### Frontend
 - [x] Frontend can display the current poe tree layout
 - [x] Hovering over tree nodes in Frontend shows node data
+- [x] Frontend has sidebar which allows user to find desired stats
 
 ### Backend
 - [x] Basic pathfinding algorithms implemented
 - [x] Basic node/path scoring mechanisms implemented
+- [x] Pathfinding now uses advanced bounded dp beam search for efficiency
 
 ## Core Roadmap:
 
 ### Phase 1 - Recommendation System
-- 🚧 Create frontend interface that allows the user to choose desired stats and class
-- [ ] Display recommended paths on the frontend tree based off of the desired stats and class
-- [ ] Create frontend interface that displays a breakdown on the recommendations
+- [x] Create frontend interface that allows the user to choose desired stats and class
+- [x] Display recommended paths on the frontend tree based off of the desired stats and class
+- [x] Create frontend interface that displays a breakdown on the recommendations
     - Point cost
     - Stats gained (both desired and non-desired)
 
 ### Phase 2 - Build Planner Intelligence
-- [ ] Add build presets so user does not need to manually choose every stat
+- 🚧 Add build presets so user does not need to manually choose every stat
     - Fire/other elemental spell caster
     - Minion build
     - Weapon specific build
@@ -73,3 +75,7 @@ The system should eventually generate complete levelling and endgame tree recomm
 - Web search tool to look at already existing builds for chosen gems
 - AI model/AI tool to help with all build planning stages and provide breakdown for each stage
 - Character gearing once all tree and gem logic is complete
+
+## Current limitations
+- Due to using a more efficient path finding algorithm, there is no longer a guarantee of the most "optimal" path since we don't explore every possible path
+    - There could exist some solution to this problem but for now, it's better to use the more efficient pathfinding algorithm which provides a sub optimal solution
