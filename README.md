@@ -29,7 +29,7 @@ The system should eventually generate complete levelling and endgame tree recomm
 ### Backend
 - [x] Basic pathfinding algorithms implemented
 - [x] Basic node/path scoring mechanisms implemented
-- [x] Pathfinding now uses advanced bounded dp beam search for efficiency
+- [x] Pathfinding uses a bounded approximate single-path search for efficiency
 
 ## Core Roadmap:
 
@@ -79,3 +79,29 @@ The system should eventually generate complete levelling and endgame tree recomm
 ## Current limitations
 - Due to using a more efficient path finding algorithm, there is no longer a guarantee of the most "optimal" path since we don't explore every possible path
     - There could exist some solution to this problem but for now, it's better to use the more efficient pathfinding algorithm which provides a sub optimal solution
+
+## Pathing research and reproduction
+
+The current search is a bounded LIFO beam-style heuristic, not exact dynamic
+programming. The research harness compares it with a deliberately limited exact
+small-case solver, cached/uncached scoring, and an opt-in non-useful-leaf
+preprocessing experiment. Production uses equivalent cached parsed-stat vectors
+but does not enable pruning.
+
+- [Research report](docs/pathing-research.md)
+- [Passive-tree structural analysis](docs/tree-data-analysis.md)
+- [Committed quick benchmark results](docs/pathing-benchmark-results.json)
+
+From the repository root:
+
+```powershell
+$env:PYTHONHASHSEED = '0'
+python -m unittest discover -s tests -v
+python scripts/analyse_tree_data.py
+python scripts/benchmark_pathing.py --quick --repeats 4 --output docs/pathing-benchmark-results.json
+python scripts/benchmark_pathing.py --full --no-memory --repeats 4 --output "$env:TEMP\poe-cache-full-final.json"
+```
+
+The fixed hash seed makes capped multi-start behaviour reproducible while it
+remains dependent on Python set iteration in production. Benchmark repeats
+rotate the four cache/pruning variants to reduce fixed-order timing bias.
