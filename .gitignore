@@ -1,3 +1,6 @@
 src/.cache
 CODE_REVIEW.md
+AGENTS.md
 __pycache__
+docs/
+benchmarks/
