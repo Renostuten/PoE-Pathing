@@ -148,6 +148,7 @@ class TreeOptimizer:
             candidate_path = candidate["path"]
             is_dominated = any(
                 self.is_strict_prefix(candidate_path, other["path"])
+                and self._candidate_rank(other) > self._candidate_rank(candidate)
                 for other in candidates
             )
 
@@ -155,6 +156,10 @@ class TreeOptimizer:
                 filtered.append(candidate)
 
         return filtered
+
+    @staticmethod
+    def _candidate_rank(candidate: dict) -> tuple[float, float]:
+        return candidate["score"], candidate["efficiency"]
 
     def is_strict_prefix(self, path, other_path):
         return len(path) < len(other_path) and other_path[:len(path)] == path

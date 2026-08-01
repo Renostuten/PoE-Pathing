@@ -33,12 +33,25 @@ class PathEvaluator:
                 continue
 
             node = self.node_scorer.node_lookup.get(node_id)
+            cached_parser = getattr(
+                self.node_scorer,
+                "parsed_stats_for_node",
+                None,
+            )
+            if cached_parser is None:
+                parsed_stats = (
+                    parsed
+                    for raw_stat in node.stats
+                    if (
+                        parsed := self.node_scorer.stat_parser.parse(raw_stat)
+                    )
+                    is not None
+                )
+            else:
+                parsed_stats = cached_parser(node_id)
 
-            for raw_stat in node.stats:
-                parsed = self.node_scorer.stat_parser.parse(raw_stat)
-
-                if parsed is None:
-                    continue
+            for parsed in parsed_stats:
+                raw_stat = parsed.raw_text
 
                 key = (parsed.stat_type, parsed.modifier_type)
 
