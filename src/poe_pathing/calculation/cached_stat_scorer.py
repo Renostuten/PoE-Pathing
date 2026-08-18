@@ -6,7 +6,7 @@ from types import MappingProxyType
 
 from .stat_parser import ParsedStat, StatParser
 from .stat_scorer import StatScorer
-from ..tree.node_lookup import NodeLookup
+from tree.node_lookup import NodeLookup
 
 
 StatKey = tuple[str, str]

@@ -1,13 +1,13 @@
 from pathlib import Path
 
-from ..calculation.tree_optimizer import TreeOptimizer
-from ..calculation.path_evaluator import PathEvaluator
-from ..graph.pathfinder import PathFinder
-from ..calculation.cached_stat_scorer import CachedStatScorer
-from ..calculation.stat_scorer import StatScorer
-from ..calculation.stat_parser import StatParser
-from ..graph.build import load_adj
-from ..tree.node_lookup import NodeLookup
+from calculation.tree_optimizer import TreeOptimizer
+from calculation.path_evaluator import PathEvaluator
+from graph.pathfinder import PathFinder
+from calculation.cached_stat_scorer import CachedStatScorer
+from calculation.stat_scorer import StatScorer
+from calculation.stat_parser import StatParser
+from graph.build import load_adj
+from tree.node_lookup import NodeLookup
 
 PATH = Path(__file__).resolve().parents[1] / "data" / "raw" / "skilltree-export_3.28.0.json"
 

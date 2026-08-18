@@ -1,5 +1,5 @@
 from .stat_parser import StatParser
-from ..tree.node_lookup import NodeLookup
+from tree.node_lookup import NodeLookup
 
 class StatScorer:
     def __init__(self, stat_parser: StatParser, node_lookup: NodeLookup):

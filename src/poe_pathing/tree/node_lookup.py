@@ -1,6 +1,6 @@
 import json
 
-from ..graph.node_position import get_node_position
+from graph.node_position import get_node_position
 from .passive_node import PassiveNode
 
 class NodeLookup:
